@@ -1,0 +1,155 @@
+import type { ConfigSchema } from './schema';
+
+export const DefaultConfig: ConfigSchema = {
+	SiteIdentity: {
+		'Band Name': '',
+		Hometown: '',
+		'Logo Type': 'Title',
+		Biography: '',
+	},
+	Music: {
+		'Apple Music': '',
+		Bandcamp: '',
+		SoundCloud: '',
+		Spotify: '',
+		'Music Embed': '',
+	},
+	Videos: {
+		Vimeo: '',
+		YouTube: '',
+		'Video Embed': '',
+	},
+	Photos: [],
+	Contact: {
+		Booking: {
+			Email: '',
+			Phone: '',
+		},
+		'Social Media': {
+			Facebook: '',
+			Instagram: '',
+			Snapchat: '',
+			TikTok: '',
+			'X (Twitter)': '',
+		},
+		Settings: {
+			'Contact Label': 'Contact',
+			'Split Booking & Socials': false,
+		},
+	},
+	Support: {
+		'Apple Pay': '',
+		'Google Pay': '',
+		PayPal: '',
+		Stripe: '',
+		Venmo: '',
+		'Custom Label': '',
+		'Custom Link': '',
+	},
+	Colors: {
+		Background: '#ffffff',
+		Accent: '#000000',
+		Body: '#000000',
+		White: '#ffffff',
+		Black: '#000000',
+	},
+	Fonts: {
+		Header: 'sans-serif',
+		Fancy: 'cursive',
+		Main: 'serif',
+		Imports: '',
+	},
+	Elements: {
+		h1: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 48,
+			'Font Weight': 'Bold',
+		},
+		h2: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 42,
+			'Font Weight': 'Bold',
+		},
+		h3: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 36,
+			'Font Weight': 'Bold',
+		},
+		h4: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 30,
+			'Font Weight': 'Bold',
+		},
+		h5: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 24,
+			'Font Weight': 'Bold',
+		},
+		h6: {
+			Color: 'Accent',
+			'Font Family': 'Header',
+			'Font Size (px)': 18,
+			'Font Weight': 'Bold',
+		},
+		p: {
+			Color: 'Body',
+			'Font Family': 'Main',
+			'Font Size (px)': 16,
+			'Font Weight': 'Normal',
+		},
+		a: {
+			Color: 'Body',
+			'Font Family': 'Inherit',
+			Italic: false,
+			Underline: false,
+			Hover: {
+				Color: 'Accent',
+				Italic: false,
+				Underline: true,
+			},
+		},
+	},
+	Options: {
+		Accordions: {
+			Headings: 'Left',
+			'Text Shadow': 'Accent',
+			'Shadow: X (px)': 0,
+			'Shadow: Y (px)': 0,
+			'Accordion Arrows': true,
+			'Body Background': 'Accent',
+			'Background Opacity': 'Solid',
+			'Border Radius (px)': 0,
+			'Body Padding (px)': 0,
+		},
+		Analytics: {
+			'Google Analytics': '',
+		},
+		Background: {
+			'Background Image': '',
+			'Background Position (X, Y)': 'Center, Top',
+			'Background Size': 'Cover',
+			'Background Repeat': 'Repeat',
+			'Background Color': 'Background',
+			'Background Opacity': 'Solid',
+		},
+		Footer: {
+			Color: 'White',
+			'Font Weight': 'Normal',
+		},
+		Sections: [
+			'Music',
+			'Videos',
+			'Photos',
+			'Events',
+			'Press',
+			'Biography',
+			'Contact',
+			'Support',
+		],
+	},
+};
