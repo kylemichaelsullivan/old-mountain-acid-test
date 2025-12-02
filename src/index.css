@@ -1,20 +1,269 @@
 @import 'tailwindcss';
 
 :root {
-	color-scheme: light dark;
+	--epk-background: #ed8282;
+	--epk-accent: #2566be;
+	--epk-body: #000000;
+	--epk-white: #ffffff;
+	--epk-header: Angkor, sans-serif;
+	--epk-fancy: cursive;
+	--epk-main: Montserrat, serif;
+}
 
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
+:root {
+	--metronome-unit: 1rem;
+	--metronome-dark: #000;
+	--metronome-mid: #999;
+	--metronome-lite: #ddd;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	font-family: var(--epk-main);
+	min-width: 0;
+}
+
+a {
+	color: var(--epk-body);
+	cursor: pointer;
+	font-family: inherit;
+	font-style: normal;
+	text-decoration: none;
+	transition: 0.25s ease-in;
+}
+
+a:hover,
+a:focus {
+	color: var(--epk-body);
+	font-style: normal;
+	text-decoration: underline;
+}
+
+body {
+	position: relative;
+	background: var(--epk-background);
+	min-height: 100vh;
+	padding: 0;
+	margin: 0;
+}
+
+button {
+	border: 1px solid transparent;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font: inherit;
+	padding: 0.25em 0.5rem;
+	text-decoration: none;
+}
+
+button:hover,
+button:focus {
+	border-color: currentColor;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--epk-accent);
+	font-family: var(--epk-header);
+	font-weight: 700;
+	margin: 1.5em 0 1em;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 {
+	font-size: 42px;
+}
+
+h3 {
+	font-size: 36px;
+}
+
+h4 {
+	font-size: 30px;
+}
+
+h5 {
+	font-size: 24px;
+}
+
+h6 {
+	font-size: 18px;
+}
+
+html {
+	color-scheme: dark light;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+img,
+video {
+	max-height: 100vh;
+}
+
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+ol,
+p,
+ul {
+	color: var(--epk-body);
+	font-family: var(--epk-main);
+	font-size: 16px;
 	font-weight: 400;
+}
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+ul {
+	margin: 0;
+}
+
+.accordion {
+	color: var(--epk-white);
+}
+
+.combo-links-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	gap: 1rem;
+}
+
+.epk-body {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 1rem;
+	max-width: 1200px;
+	min-height: calc(100vh - 6.75rem);
+	margin: 0 auto;
+}
+
+.Header {
+	padding: 1rem 0;
+}
+
+.loading {
+	position: relative;
+}
+
+.Logo img {
+	width: 100vw;
+	height: auto;
+	max-height: calc(100vh - 2rem);
+}
+
+.metronome {
+	position: absolute;
+	display: none;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	content: '';
+	align-items: center;
+	margin: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.metronome-bottom {
+	border-top: var(--metronome-unit, 1rem) solid var(--metronome-dark);
+	border-right: var(--metronome-unit, 1rem) solid transparent;
+	border-left: var(--metronome-unit, 1rem) solid transparent;
+	width: calc(5 * var(--metronome-unit, 1rem));
+	height: 0;
+}
+
+.metronome-inner {
+	height: 0;
+}
+
+.metronome-middle {
+	border-bottom: calc(7 * var(--metronome-unit, 1rem)) solid
+		var(--metronome-dark);
+	border-left: var(--metronome-unit, 1rem) solid transparent;
+	border-right: var(--metronome-unit, 1rem) solid transparent;
+	width: calc(5 * var(--metronome-unit, 1rem));
+}
+
+.metronome-top {
+	border-bottom: var(--metronome-unit, 1rem) solid var(--metronome-dark);
+	border-left: calc(1.5 * var(--metronome-unit, 1rem)) solid transparent;
+	border-right: calc(1.5 * var(--metronome-unit, 1rem)) solid transparent;
+	width: calc(2 * var(--metronome-unit, 1rem));
+}
+
+.no-js .accordion .accordion-toggle {
+	cursor: default;
+}
+
+a.combo-link {
+	display: flex;
+	justify-content: center;
+	gap: 0.5em;
+	text-align: center;
+	min-width: 100%;
+	padding: 0.25em;
+	text-decoration: none;
+}
+
+a.combo-link:hover,
+a.combo-link:focus {
+	text-decoration: none;
+}
+
+a.combo-link > i {
+	transition: 0.25s ease-in;
+}
+
+a.combo-link > span {
+	text-decoration: none;
+}
+
+a.combo-link:hover > span,
+a.combo-link:focus > span {
+	text-decoration: underline;
+}
+
+a.combo-link:hover span,
+a.combo-link:focus span {
+	text-decoration: underline;
+}
+
+body #body-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 1rem;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.combo-links-container.contact-socials {
+	justify-content: center;
 }
 
 html,
-body,
 #root {
 	width: 100%;
 	height: 100%;
@@ -22,6 +271,581 @@ body,
 	margin: 0;
 }
 
-button {
+.accordion .accordion-container {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.5s linear;
+}
+
+.accordion .accordion-content {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 1rem;
+	background: var(--epk-white);
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 8px;
+	color: var(--epk-body);
+	transition: 0.3s linear;
+	overflow: hidden;
+}
+
+.accordion .accordion-content * {
+	color: var(--epk-body);
+	font-family: var(--epk-main);
+}
+
+.accordion .accordion-content > div {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 1rem;
+}
+
+.accordion .accordion-content > div.combo-links-container {
+	flex-flow: row wrap;
+}
+
+.accordion .accordion-content a {
+	color: var(--epk-body);
+	font-family: inherit;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.accordion .accordion-content a:not(.combo-link):hover,
+.accordion .accordion-content a:not(.combo-link):focus {
+	color: var(--epk-body);
+	font-style: normal;
+	text-decoration: underline;
+}
+
+.accordion .accordion-content a:hover,
+.accordion .accordion-content a:focus {
+	color: var(--epk-accent);
+}
+
+.accordion .accordion-content li::marker {
+	color: var(--epk-body);
+}
+
+.accordion .accordion-content .fa {
+	font-family: 'Font Awesome 6 Free';
+}
+
+.accordion .accordion-content .fa-brands {
+	font-family: 'Font Awesome 6 Brands';
+}
+
+.accordion .accordion-content .slider {
+	position: relative;
+}
+
+.accordion .accordion-content .slider .slide {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	opacity: 0;
+	transition: opacity 0.25s linear;
+}
+
+.accordion .accordion-content .slider .slide .slide-image {
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+}
+
+.accordion .accordion-content .slider .slide.active {
+	opacity: 1;
+	z-index: 1;
+}
+
+.accordion .accordion-content .slider .slider-navs {
+	position: absolute;
+	display: none;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 0 0.5rem;
+}
+
+.accordion .accordion-content .slider .slider-navs .slider-nav {
+	z-index: 2;
+}
+
+.accordion .accordion-content .slider.has-slides .slide .slide-image {
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+}
+
+.accordion .accordion-content .slider.has-slides .slide .slide-image:active {
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
+.accordion .accordion-content .slider.has-slides .slider-navs {
+	display: flex;
+}
+
+.accordion .accordion-toggle {
+	position: relative;
 	cursor: pointer;
+	align-items: center;
+	padding: 0.5em 0;
+}
+
+.accordion .accordion-toggle > * {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.accordion .accordion-toggle svg {
+	position: absolute;
+	color: var(--epk-accent);
+	top: 50%;
+	right: 0.5em;
+	transform: translateY(-50%);
+	transition: transform 0.25s linear;
+}
+
+.accordion .accordion-toggle.has-arrows > h3 {
+	margin-right: 1.5rem;
+}
+
+.accordion .accordion-toggle:hover span,
+.accordion .accordion-toggle:focus span {
+	text-decoration: underline;
+}
+
+.accordion.open .accordion-container {
+	grid-template-rows: 1fr;
+}
+
+.accordion.open .accordion-toggle svg {
+	transform: rotate(90deg);
+}
+
+.accordion#epk-biography .accordion-content {
+	gap: 0;
+}
+
+.accordion-toggle h3 {
+	text-shadow: 0px 0px var(--epk-);
+}
+
+.loading .metronome {
+	display: flex;
+}
+
+.metronome-middle .metronome-inner,
+.metronome-middle .metronome-pendulum {
+	position: absolute;
+}
+
+.metronome-middle .metronome-inner {
+	border-bottom: calc(5.5 * var(--metronome-unit, 1rem)) solid
+		var(--metronome-mid);
+	border-left: calc(0.7 * var(--metronome-unit, 1rem)) solid transparent;
+	border-right: calc(0.7 * var(--metronome-unit, 1rem)) solid transparent;
+	width: calc(3 * var(--metronome-unit, 1rem));
+	bottom: calc(1.5 * var(--metronome-unit, 1rem));
+}
+
+.metronome-middle .metronome-pendulum {
+	background: var(--metronome-lite);
+	border-radius: var(--metronome-unit, 1rem);
+	width: calc(0.5 * var(--metronome-unit, 1rem));
+	height: calc(6 * var(--metronome-unit, 1rem));
+	bottom: calc(1.5 * var(--metronome-unit, 1rem));
+	left: 50%;
+	transform-origin: bottom;
+	animation: metronome 0.875s linear 0s infinite;
+}
+
+.metronome-middle .metronome-pendulum::before {
+	position: absolute;
+	content: '';
+	background: var(--metronome-dark);
+	border-radius: 50%;
+	width: calc(0.25 * var(--metronome-unit, 1rem));
+	height: calc(0.25 * var(--metronome-unit, 1rem));
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.metronome::before,
+.metronome::after {
+	position: absolute;
+	content: '';
+	background-color: var(--metronome-dark);
+	width: calc(0.5 * var(--metronome-unit, 1rem));
+	height: calc(0.5 * var(--metronome-unit, 1rem));
+	top: 100%;
+}
+
+.metronome::before {
+	left: var(--metronome-unit, 1rem);
+}
+
+.metronome::after {
+	right: var(--metronome-unit, 1rem);
+}
+
+.no-js .accordion .accordion-toggle:hover span,
+.no-js .accordion .accordion-toggle:focus span {
+	text-decoration: none;
+}
+
+.no-js .accordion .accordion-toggle i {
+	display: none;
+}
+
+#epk-contact .contact-booking .combo-link {
+	min-width: 100%;
+}
+
+#epk-logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#epk-logo img {
+	object-fit: contain;
+	width: 100%;
+}
+
+#epk-logo img,
+#epk-logo svg {
+	max-height: 98vh;
+}
+
+#epk-logo svg {
+	height: calc(100vh - 2rem);
+}
+
+#epk-logo svg,
+#epk-logo svg > g {
+	fill: var(--epk-accent);
+}
+
+#epk-logo path {
+	stroke: var(--epk-accent);
+}
+
+#epk-music .loading {
+	--metronome-unit: 0.75rem;
+}
+
+#epk-music .coming-soon {
+	margin: 0 auto;
+}
+
+#epk-music .accordion-container iframe {
+	display: block;
+	max-width: 90%;
+	margin: 0.5rem auto 1rem;
+}
+
+#epk-music .musics-audio {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 1rem;
+}
+
+#epk-music .musics-audio audio {
+	width: 100%;
+}
+
+#epk-music .musics-audio .audio-title {
+	margin: 0;
+}
+
+#epk-photos.open .accordion-container .accordion-content .slider {
+	border: 0;
+}
+
+#epk-photos.open .accordion-container .accordion-content .slider .slide-image {
+	border: 1px solid;
+	width: auto;
+}
+
+#epk-press .epk-press-item {
+	margin-bottom: 0.5em;
+}
+
+#epk-press .epk-press-item:last-child {
+	margin-bottom: 0;
+}
+
+#epk-title {
+	text-align: center;
+	margin: 0;
+}
+
+#epk-videos iframe,
+#epk-videos video {
+	width: 100%;
+}
+
+#site-footer {
+	display: flex;
+	flex-flow: row wrap;
+	padding-top: 1rem;
+}
+
+#site-footer > * {
+	flex: auto;
+}
+
+#site-footer p {
+	margin: 0;
+}
+
+#site-footer .section-inner {
+	position: relative;
+}
+
+#site-footer .ToTop {
+	position: absolute;
+	cursor: pointer;
+	top: 50%;
+	right: 0.5rem;
+	transform: translateY(-50%);
+}
+
+#site-footer,
+#site-footer * {
+	color: var(--epk-body);
+	font-weight: 700;
+}
+
+.accordion .accordion-content {
+	background-color: var(--epk-accent);
+}
+
+.accordion .accordion-container .accordion-content {
+	border-radius: 0px;
+}
+
+.accordion.open .accordion-container .accordion-content {
+	padding: 16px;
+}
+
+/* Colors */
+.has-accent-background-color {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-background-color-after::after {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-background-color-before::before {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-background-color-hover:hover,
+.has-accent-background-color-hover:focus {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-background-color-hover-after:hover::after,
+.has-accent-background-color-hover-after:focus::after {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-background-color-hover-before:hover::before,
+.has-accent-background-color-hover-before:focus::before {
+	background-color: var(--epk-accent);
+}
+
+.has-accent-border-color {
+	border-color: var(--epk-accent);
+}
+
+.has-accent-border-color-hover:hover,
+.has-accent-border-color-hover:focus {
+	border-color: var(--epk-accent);
+}
+
+.has-accent-color {
+	color: var(--epk-accent);
+}
+
+.has-accent-color-hover:hover,
+.has-accent-color-hover:focus {
+	color: var(--epk-accent);
+}
+
+.has-background-background-color {
+	background-color: var(--epk-background);
+}
+
+.has-background-background-color-after::after {
+	background-color: var(--epk-background);
+}
+
+.has-background-background-color-before::before {
+	background-color: var(--epk-background);
+}
+
+.has-background-background-color-hover:hover,
+.has-background-background-color-hover:focus {
+	background-color: var(--epk-background);
+}
+
+.has-background-background-color-hover-after:hover::after,
+.has-background-background-color-hover-after:focus::after {
+	background-color: var(--epk-background);
+}
+
+.has-background-background-color-hover-before:hover::before,
+.has-background-background-color-hover-before:focus::before {
+	background-color: var(--epk-background);
+}
+
+.has-background-border-color {
+	border-color: var(--epk-background);
+}
+
+.has-background-border-color-hover:hover,
+.has-background-border-color-hover:focus {
+	border-color: var(--epk-background);
+}
+
+.has-background-color {
+	color: var(--epk-background);
+}
+
+.has-background-color-hover:hover,
+.has-background-color-hover:focus {
+	color: var(--epk-background);
+}
+
+.has-body-background-color {
+	background-color: var(--epk-body);
+}
+
+.has-body-background-color-after::after {
+	background-color: var(--epk-body);
+}
+
+.has-body-background-color-before::before {
+	background-color: var(--epk-body);
+}
+
+.has-body-background-color-hover:hover,
+.has-body-background-color-hover:focus {
+	background-color: var(--epk-body);
+}
+
+.has-body-background-color-hover-after:hover::after,
+.has-body-background-color-hover-after:focus::after {
+	background-color: var(--epk-body);
+}
+
+.has-body-background-color-hover-before:hover::before,
+.has-body-background-color-hover-before:focus::before {
+	background-color: var(--epk-body);
+}
+
+.has-body-border-color {
+	border-color: var(--epk-body);
+}
+
+.has-body-border-color-hover:hover,
+.has-body-border-color-hover:focus {
+	border-color: var(--epk-body);
+}
+
+.has-body-color {
+	color: var(--epk-body);
+}
+
+.has-body-color-hover:hover,
+.has-body-color-hover:focus {
+	color: var(--epk-body);
+}
+
+.has-white-background-color {
+	background-color: var(--epk-white);
+}
+
+.has-white-background-color-after::after {
+	background-color: var(--epk-white);
+}
+
+.has-white-background-color-before::before {
+	background-color: var(--epk-white);
+}
+
+.has-white-background-color-hover:hover,
+.has-white-background-color-hover:focus {
+	background-color: var(--epk-white);
+}
+
+.has-white-background-color-hover-after:hover::after,
+.has-white-background-color-hover-after:focus::after {
+	background-color: var(--epk-white);
+}
+
+.has-white-background-color-hover-before:hover::before,
+.has-white-background-color-hover-before:focus::before {
+	background-color: var(--epk-white);
+}
+
+.has-white-border-color {
+	border-color: var(--epk-white);
+}
+
+.has-white-border-color-hover:hover,
+.has-white-border-color-hover:focus {
+	border-color: var(--epk-white);
+}
+
+.has-white-color {
+	color: var(--epk-white);
+}
+
+.has-white-color-hover:hover,
+.has-white-color-hover:focus {
+	color: var(--epk-white);
+}
+
+@media screen and (min-width: 375px) {
+	a.combo-link {
+		min-width: 50%;
+	}
+}
+
+@media screen and (min-width: 576px) {
+	a.combo-link {
+		min-width: 25%;
+	}
+
+	#epk-contact .contact-booking .combo-link {
+		min-width: unset;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	a.combo-link {
+		min-width: unset;
+	}
+}
+
+@keyframes metronome {
+	0% {
+		transform: translateX(-50%) rotate(-15deg);
+	}
+	50% {
+		transform: translateX(-50%) rotate(15deg);
+	}
+	100% {
+		transform: translateX(-50%) rotate(-15deg);
+	}
 }
