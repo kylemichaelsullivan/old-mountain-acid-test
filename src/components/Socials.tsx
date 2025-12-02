@@ -1,5 +1,11 @@
+import Accordion from './Accordion';
+
 function Socials() {
-	return <div className='Socials'>Socials</div>;
+	return (
+		<Accordion title='Socials'>
+			<p>Socials</p>
+		</Accordion>
+	);
 }
 
 export default Socials;

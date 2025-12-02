@@ -1,5 +1,11 @@
+import Accordion from './Accordion';
+
 function Music() {
-	return <div className='Music'>Music</div>;
+	return (
+		<Accordion title='Music'>
+			<p>Music</p>
+		</Accordion>
+	);
 }
 
 export default Music;

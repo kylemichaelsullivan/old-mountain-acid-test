@@ -1,5 +1,11 @@
+import Accordion from './Accordion';
+
 function Support() {
-	return <div className='Support'>Support</div>;
+	return (
+		<Accordion title='Support'>
+			<p>Support</p>
+		</Accordion>
+	);
 }
 
 export default Support;

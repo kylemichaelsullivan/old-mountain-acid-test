@@ -1,5 +1,11 @@
+import Accordion from './Accordion';
+
 function Videos() {
-	return <div className='Videos'>Videos</div>;
+	return (
+		<Accordion title='Videos'>
+			<p>Videos</p>
+		</Accordion>
+	);
 }
 
 export default Videos;
