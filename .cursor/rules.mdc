@@ -17,23 +17,23 @@ alwaysApply: true
 ## Package Management
 
 - **Package Manager**: Bun
-- **Build Command**: `bun run build` (TypeScript compilation + Vite build)
-- **Development Command**: `bun run dev` (Vite dev server with HMR)
+- **Build Command**: `bun build` (TypeScript compilation + Vite build)
+- **Development Command**: `bun dev` (Vite dev server with HMR)
 - **Lock File**: `bun.lock`
 
 ## Development Scripts
 
 ### Development Commands
 
-- **Development Server**: `bun run dev` (Vite dev server with HMR)
-- **Production Build**: `bun run build` (TypeScript compilation + Vite build)
-- **Preview Build**: `bun run preview` (Preview production build locally)
-- **Linting**: `bun run lint` (Run Biome linter)
-- **Lint Fix**: `bun run lint:fix` (Run Biome linter and auto-fix)
-- **Formatting**: `bun run format` (Format code with Biome)
-- **Format Check**: `bun run format:check` (Check code format)
-- **Check All**: `bun run check` (Run Biome formatter + linter)
-- **Check All Fix**: `bun run check:write` (Run Biome formatter + linter and auto-fix)
+- **Development Server**: `bun dev` (Vite dev server with HMR)
+- **Production Build**: `bun build` (TypeScript compilation + Vite build)
+- **Preview Build**: `bun preview` (Preview production build locally)
+- **Linting**: `bun lint` (Run Biome linter)
+- **Lint Fix**: `bun lint:fix` (Run Biome linter and auto-fix)
+- **Formatting**: `bun format` (Format code with Biome)
+- **Format Check**: `bun format:check` (Check code format)
+- **Check All**: `bun check` (Run Biome formatter + linter)
+- **Check All Fix**: `bun check:write` (Run Biome formatter + linter and auto-fix)
 
 ### Vite Benefits
 

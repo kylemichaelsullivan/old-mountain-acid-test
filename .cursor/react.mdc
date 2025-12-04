@@ -284,14 +284,14 @@ src/
 
 ### Scripts
 
-- **`bun run dev`**: Start development server with HMR
-- **`bun run build`**: Build for production
-- **`bun run lint`**: Run Biome linter
-- **`bun run lint:fix`**: Run Biome linter and auto-fix
-- **`bun run format`**: Format code with Biome
-- **`bun run format:check`**: Check code format
-- **`bun run check`**: Run Biome formatter + linter
-- **`bun run check:write`**: Run Biome formatter + linter and auto-fix
+- **`bun dev`**: Start development server with HMR
+- **`bun build`**: Build for production
+- **`bun lint`**: Run Biome linter
+- **`bun lint:fix`**: Run Biome linter and auto-fix
+- **`bun format`**: Format code with Biome
+- **`bun format:check`**: Check code format
+- **`bun check`**: Run Biome formatter + linter
+- **`bun check:write`**: Run Biome formatter + linter and auto-fix
 
 ### Code Quality
 
