@@ -43,6 +43,15 @@
 			"formatter": {
 				"enabled": true
 			}
+		},
+		{
+			"include": ["tsconfig*.json"],
+			"formatter": {
+				"enabled": false
+			},
+			"linter": {
+				"enabled": false
+			}
 		}
 	]
 }
