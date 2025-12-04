@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 
 function App() {
 	return (
-		<div className='App flex h-full w-full flex-col items-center justify-between'>
+		<div className='App flex h-full min-h-screen w-full flex-col items-center justify-between'>
 			<Header />
 			<Main />
 			<Footer />

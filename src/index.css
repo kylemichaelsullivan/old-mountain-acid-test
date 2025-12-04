@@ -289,7 +289,6 @@ html,
 }
 
 .accordion .accordion-content * {
-	color: var(--epk-body);
 	font-family: var(--epk-main);
 }
 
@@ -432,7 +431,7 @@ html,
 }
 
 .accordion-toggle h3 {
-	text-shadow: 0px 0px var(--epk-);
+	text-shadow: 1px 1px var(--epk-white);
 }
 
 .loading .metronome {
