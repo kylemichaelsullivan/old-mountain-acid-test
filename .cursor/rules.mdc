@@ -8,32 +8,32 @@ alwaysApply: true
 
 - Write and review code like a senior developer
 - Challenge erroneous assumptions and inefficiencies
-- Use **pnpm** for package management
-- Prefer `pnpm build` over `pnpm dev` for compilation
+- Use **Bun** for package management
+- Prefer `bun build` over `bun dev` for compilation
 - Use **TypeScript** with strict configuration
 - Follow **React 19** with **Vite** architecture
 - Use typographic apostrophe ' instead of straight apostrophe ' in ALL user-facing text
 
 ## Package Management
 
-- **Package Manager**: pnpm
-- **Build Command**: `pnpm build` (TypeScript compilation + Vite build)
-- **Development Command**: `pnpm dev` (Vite dev server with HMR)
-- **Lock File**: `pnpm-lock.yaml`
+- **Package Manager**: Bun
+- **Build Command**: `bun run build` (TypeScript compilation + Vite build)
+- **Development Command**: `bun run dev` (Vite dev server with HMR)
+- **Lock File**: `bun.lock`
 
 ## Development Scripts
 
 ### Development Commands
 
-- **Development Server**: `pnpm dev` (Vite dev server with HMR)
-- **Production Build**: `pnpm build` (TypeScript compilation + Vite build)
-- **Preview Build**: `pnpm preview` (Preview production build locally)
-- **Linting**: `pnpm lint` (Run Biome linter)
-- **Lint Fix**: `pnpm lint:fix` (Run Biome linter and auto-fix)
-- **Formatting**: `pnpm format` (Format code with Biome)
-- **Format Check**: `pnpm format:check` (Check code format)
-- **Check All**: `pnpm check` (Run Biome formatter + linter)
-- **Check All Fix**: `pnpm check:write` (Run Biome formatter + linter and auto-fix)
+- **Development Server**: `bun run dev` (Vite dev server with HMR)
+- **Production Build**: `bun run build` (TypeScript compilation + Vite build)
+- **Preview Build**: `bun run preview` (Preview production build locally)
+- **Linting**: `bun run lint` (Run Biome linter)
+- **Lint Fix**: `bun run lint:fix` (Run Biome linter and auto-fix)
+- **Formatting**: `bun run format` (Format code with Biome)
+- **Format Check**: `bun run format:check` (Check code format)
+- **Check All**: `bun run check` (Run Biome formatter + linter)
+- **Check All Fix**: `bun run check:write` (Run Biome formatter + linter and auto-fix)
 
 ### Vite Benefits
 

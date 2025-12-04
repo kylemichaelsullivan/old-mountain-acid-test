@@ -323,8 +323,8 @@ import clsx from 'clsx';
 
 ### Testing Commands
 
-- Use `pnpm dev` for development server
-- Use `pnpm build` for production build
-- Use `pnpm lint` for linting
-- Use `pnpm format` for formatting code
-- Use `pnpm format:check` for checking code format
+- Use `bun run dev` for development server
+- Use `bun run build` for production build
+- Use `bun run lint` for linting
+- Use `bun run format` for formatting code
+- Use `bun run format:check` for checking code format

@@ -1,7 +1,7 @@
 node_modules
 dist
 build
-.pnpm-store
+.bun
 *.lock
 tsconfig.json
 tsconfig.app.json
