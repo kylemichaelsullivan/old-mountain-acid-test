@@ -1,0 +1,304 @@
+---
+globs: **/*.tsx, **/*.ts
+exclude: **/__tests__/**, **/*.test.*, **/*.spec.*, **/config/**, **/server/**, **/trpc/**, **/env.js, **/components/**, **/*.css
+alwaysApply: false
+---
+
+# React Development Standards for Old Mountain Acid Test
+
+## Component Architecture
+
+### Single-Purpose Components
+
+- **One component per file**: Each file contains exactly one React component
+- **Bite-sized components**: Components should be focused and single-purpose (one thing == one component == one file)
+- **Descriptive naming**: Use PascalCase with descriptive names indicating visual purpose
+- **Component suffixes**: Use appropriate suffixes when needed (e.g., `Container`, `Panel`, `Button`, `Display`)
+
+### Component Guidelines
+
+- **TypeScript types**: Prefer `type` over `interface` for component props and data structures
+- **Default exports**: Export components as default exports using `export default`
+- **Import paths**: Use `@/components/` alias for component imports
+- **Props interface**: Define clear, typed props with descriptive names
+- **forwardRef usage**: Use `forwardRef` for components that need to expose DOM refs when needed
+
+### Performance Optimization
+
+### React.memo Usage
+
+- **Memoization criteria**: Apply `memo` to components with stable props or frequent re-renders when performance is a concern
+- **Current status**: Not currently used extensively - apply only when needed for performance optimization
+- **When to use**: Use for components that receive stable props and render frequently
+
+#### Memoization Guidelines
+
+```typescript
+// ✅ Use memo when component has stable props and frequent re-renders
+import { memo } from 'react';
+
+function ComponentName({ prop1, prop2 }: ComponentProps) {
+  return <div>{/* component content */}</div>;
+}
+
+export default memo(ComponentName);
+```
+
+**When to use React.memo:**
+
+- **UI components with stable props**: Components that receive props that don't change often
+- **Display components**: Components that render frequently but with the same data
+- **Form components**: Form fields that don't change often
+
+**When NOT to use React.memo:**
+
+- **Layout components**: Header, Footer, Main (these rarely re-render)
+- **Components with frequently changing props**: Components that receive new props on every render
+- **Simple components**: Components that are already fast enough
+
+#### Performance Optimization Patterns
+
+```typescript
+// ✅ useCallback for event handlers
+import { useCallback, useState } from 'react';
+
+function AccordionComponent({ title, children }: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleAccordion = useCallback(() => {
+    setIsOpen(prev => !prev);
+  }, []);
+
+  return (
+    <div>
+      <button onClick={toggleAccordion}>{title}</button>
+      {isOpen && <div>{children}</div>}
+    </div>
+  );
+}
+```
+
+```typescript
+// ✅ useMemo for expensive computations
+import { useMemo } from 'react';
+
+function SectionComponent({ data }: SectionProps) {
+  // Memoize expensive calculations
+  const processedData = useMemo(() => {
+    return data.map(item => expensiveCalculation(item));
+  }, [data]);
+
+  return <div>{/* render processed data */}</div>;
+}
+```
+
+### Performance Considerations
+
+### Memoization
+
+- **React.memo**: Use for components with stable props when performance is a concern
+- **useMemo**: Use for expensive computations (e.g., data processing, filtering)
+- **useCallback**: Use for event handlers passed as props to memoized children
+
+### Bundle Optimization
+
+- **Tree shaking**: Import only necessary components and utilities
+- **Dynamic imports**: Use for large components when appropriate
+- **Code splitting**: Leverage Vite's automatic code splitting
+
+## State Management
+
+### Local State
+
+- **useState**: Use for component-local state
+- **State lifting**: Lift state up when multiple components need access
+- **State organization**: Keep state as close to where it's used as possible
+
+#### State Guidelines
+
+```typescript
+// ✅ Use useState for local component state
+import { useState } from 'react';
+
+function Accordion({ title, children }: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div>
+      <button onClick={toggleAccordion}>{title}</button>
+      {isOpen && <div>{children}</div>}
+    </div>
+  );
+}
+```
+
+### Configuration System
+
+- **Config-driven**: Use centralized config system for application settings
+- **Type safety**: Config uses Zod schemas for runtime validation
+- **Config access**: Import and use `Config` from `@/config/config`
+
+#### Config Usage
+
+```typescript
+// ✅ Access config values
+import { Config } from '@/config/config';
+import { getField } from '@/config/config';
+
+// Access full config
+const bandName = Config.SiteIdentity['Band Name'];
+
+// Use helper function
+const musicConfig = getField('Music');
+```
+
+## Accessibility Standards
+
+### ARIA and Semantics
+
+- **Proper ARIA labels**: Include appropriate ARIA labels and roles
+- **Keyboard navigation**: Support keyboard navigation with proper tabIndex
+- **Focus management**: Implement proper focus management
+- **Screen reader compatibility**: Ensure screen reader compatibility
+- **Color contrast**: Maintain proper color contrast ratios
+- **Semantic HTML**: Use semantic HTML structure (header, main, footer, nav, etc.)
+
+### Error Handling
+
+- **Error message association**: Associate error messages with form fields when applicable
+- **Loading state announcements**: Announce loading states to screen readers when needed
+- **Error boundaries**: Implement error boundaries for graceful error handling when needed
+- **Defensive programming**: Include validation and fallbacks for data integrity
+
+## Old Mountain Acid Test-Specific Guidelines
+
+### Section Components
+
+All section components follow a similar pattern using the Accordion component:
+
+- **Biography**: Biography section in accordion
+- **Booking**: Booking/contact section in accordion
+- **Events**: Events section in accordion
+- **Music**: Music section in accordion
+- **Photos**: Photos section in accordion
+- **Socials**: Social media section in accordion
+- **Support**: Support/donations section in accordion
+- **Videos**: Videos section in accordion
+
+### Accordion Component
+
+- **Reusable pattern**: All sections use the Accordion component for consistent UI
+- **Configurable**: Accordion supports alignment, arrows, and custom IDs
+- **State management**: Each accordion manages its own open/close state
+
+### Layout Components
+
+- **App**: Main application wrapper with Header, Main, and Footer
+- **Header**: Site header containing Logo component
+- **Main**: Main content area containing all section components
+- **Footer**: Site footer with copyright and ToTop button
+
+### Utility Components
+
+- **Logo**: SVG logo component with aria-label
+- **Accordion**: Reusable accordion with configurable alignment and arrows
+- **ToTop**: Scroll to top button component
+
+### Typography
+
+- **Typographic apostrophe**: Use ' instead of ' in all user-facing text
+- **Config-driven**: Typography styles are driven by config system
+- **Font imports**: Use config for font family imports
+- **CSS variables**: Typography uses CSS variables (--epk-header, --epk-main, --epk-fancy)
+
+### Icons
+
+- **FontAwesome**: Use FontAwesome icons via `@fortawesome/react-fontawesome`
+- **SVG React components**: Use `?react` suffix for SVG imports (e.g., `@/assets/logo.svg?react`)
+- **Icon accessibility**: Include `aria-hidden='true'` for decorative icons
+
+### Styling
+
+- **Tailwind CSS**: Use Tailwind utility classes for styling
+- **Custom CSS**: Use custom CSS classes for complex or reusable patterns (accordion, metronome, etc.)
+- **CSS variables**: Use CSS variables for colors and fonts (--epk-background, --epk-accent, etc.)
+- **Responsive design**: Use Tailwind responsive prefixes (sm:, md:, lg:, xl:)
+
+### Configuration System
+
+The project uses a centralized configuration system with Zod validation:
+
+- **Config sections**: SiteIdentity, Music, Videos, Photos, Contact, Support, Colors, Fonts, Elements, Options
+- **Type safety**: Config uses Zod schemas for runtime validation
+- **Deep merging**: Config system supports deep merging of defaults and overrides
+- **Validation**: All config values are validated at runtime
+
+## File Organization
+
+### Component Structure
+
+```
+src/components/
+├── App.tsx               # Main application component
+├── Header.tsx            # Site header with logo
+├── Main.tsx              # Main content area with sections
+├── Footer.tsx            # Site footer with copyright and ToTop
+├── Logo.tsx              # Logo component (SVG)
+├── Accordion.tsx         # Reusable accordion component
+├── Biography.tsx         # Biography section
+├── Booking.tsx           # Booking/contact section
+├── Events.tsx            # Events section
+├── Music.tsx             # Music section
+├── Photos.tsx            # Photos section
+├── Socials.tsx           # Social media section
+├── Support.tsx           # Support/donations section
+├── ToTop.tsx             # Scroll to top button
+└── Videos.tsx            # Videos section
+```
+
+### Config Structure
+
+```
+src/config/
+├── config.ts             # Main config builder and exports
+├── defaults.ts           # Default configuration values
+├── schema.ts             # Zod schemas for validation
+└── types.ts              # TypeScript type definitions
+```
+
+### Entry Point
+
+```
+src/
+├── main.tsx              # Application entry point
+├── index.css             # Global styles and CSS variables
+└── assets/               # Static assets (SVG, images)
+    └── logo.svg          # Logo SVG file
+```
+
+## Development Workflow
+
+### Scripts
+
+- **`pnpm dev`**: Start development server with HMR
+- **`pnpm build`**: Build for production
+- **`pnpm lint`**: Run ESLint
+- **`pnpm format`**: Format code with Prettier
+- **`pnpm format:check`**: Check code format
+
+### Code Quality
+
+- **TypeScript**: Strict type checking enabled
+- **ESLint**: Code linting with React-specific rules
+- **Prettier**: Code formatting with Tailwind plugin
+- **Import organization**: Use `@/` alias for clean imports
+
+### Testing
+
+- **Component testing**: Test components with React Testing Library when needed
+- **Config testing**: Test config merging and validation when needed
+- **Accessibility testing**: Test accessibility features when needed

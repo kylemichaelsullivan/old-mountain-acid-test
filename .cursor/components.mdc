@@ -1,0 +1,330 @@
+---
+globs: **/components/**/*.tsx
+exclude: **/__tests__/**, **/*.test.*, **/*.spec.*
+alwaysApply: false
+---
+
+# Old Mountain Acid Test Component Development Standards
+
+## File Organization
+
+```
+src/components/
+├── App.tsx               # Main application component
+├── Header.tsx            # Site header with logo
+├── Main.tsx              # Main content area with sections
+├── Footer.tsx            # Site footer with copyright and ToTop
+├── Logo.tsx              # Logo component (SVG)
+├── Accordion.tsx         # Reusable accordion component
+├── Biography.tsx         # Biography section
+├── Booking.tsx           # Booking/contact section
+├── Events.tsx            # Events section
+├── Music.tsx             # Music section
+├── Photos.tsx            # Photos section
+├── Socials.tsx           # Social media section
+├── Support.tsx           # Support/donations section
+├── ToTop.tsx             # Scroll to top button
+└── Videos.tsx            # Videos section
+
+src/config/
+├── config.ts             # Main config builder and exports
+├── defaults.ts           # Default configuration values
+├── schema.ts             # Zod schemas for validation
+└── types.ts              # TypeScript type definitions
+```
+
+## Component Structure Guidelines
+
+### Avoid Superfluous Wrappers
+
+- **Remove unnecessary wrapper divs**: Don't create wrapper divs that add DOM complexity without benefit
+- **Simplify component structure**: Remove redundant nesting when possible
+- **Keep meaningful wrappers**: Retain wrappers that serve styling, semantic, or organizational purposes
+
+### Spacing Guidelines
+
+- **Avoid `space-*` utilities**: Don't use `space-x-*` or `space-y-*` utilities - they rely on margin-based spacing
+- **Use flex/gap spacing**: Use `flex flex-col gap-*` for vertical spacing and `flex items-center gap-*` for horizontal spacing
+- **Maintain visual consistency**: All spacing changes should preserve the original visual appearance
+
+#### Spacing Examples
+
+```tsx
+// ❌ Avoid - margin-based spacing
+<div className='space-y-4'>
+  <Component />
+</div>
+
+// ✅ Good - flexbox-based spacing
+<div className='flex flex-col gap-4'>
+  <Component />
+</div>
+```
+
+```tsx
+// ❌ Avoid - redundant wrapper
+<div className='Container'>
+  <div className='flex flex-col gap-4'>
+    <Component />
+  </div>
+</div>
+
+// ✅ Good - simplified structure
+<div className='Container flex flex-col gap-4'>
+  <Component />
+</div>
+```
+
+## Utility Components
+
+Always use the project's utility components instead of creating custom HTML elements when possible:
+
+### Core UI Components
+
+- **Accordion** (`@/components/Accordion`) - Reusable accordion component for collapsible sections
+  - Required props: `title`, `children`
+  - Optional props: `align` ('left' | 'center' | 'right' | 'justify'), `hasArrows` (boolean), `id` (string)
+  - Uses FontAwesome icons for chevron arrows
+  - Supports configurable text alignment
+
+#### Example Usage
+
+```tsx
+// ✅ Use Accordion component
+import Accordion from '@/components/Accordion';
+
+<Accordion title='Music' align='center' hasArrows={true}>
+  <p>Music content here</p>
+</Accordion>
+
+// ❌ Don't create custom accordion when utility exists
+<div className='custom-accordion'>
+  <button onClick={toggle}>Music</button>
+  {isOpen && <div>Content</div>}
+</div>
+```
+
+## Component Guidelines
+
+### Single-Purpose Components
+
+- **One component per file**: Each file contains exactly one React component
+- **Bite-sized components**: Components should be focused and single-purpose (one thing == one component == one file)
+- **Descriptive naming**: Use PascalCase with descriptive names indicating visual purpose
+- **Component suffixes**: Use appropriate suffixes when needed (e.g., `Container`, `Panel`, `Button`, `Display`)
+
+### Component Structure
+
+```tsx
+// Pattern 1: Function component with default export (most common)
+import clsx from 'clsx';
+
+import type { ReactNode } from 'react';
+
+type ComponentProps = {
+	title: string;
+	variant?: 'primary' | 'secondary';
+	children?: ReactNode;
+};
+
+function ComponentName({
+	title,
+	variant = 'primary',
+	children,
+}: ComponentProps) {
+	return (
+		<div
+			className={clsx(
+				'ComponentName base-classes',
+				variant === 'secondary' && 'secondary-classes',
+			)}
+		>
+			{children}
+		</div>
+	);
+}
+
+export default ComponentName;
+
+// Pattern 2: forwardRef component with default export (for DOM refs)
+import { forwardRef } from 'react';
+
+const ComponentName = forwardRef<HTMLDivElement, ComponentProps>(
+	({ title, variant = 'primary', children }, ref) => {
+		return (
+			<div
+				ref={ref}
+				className={clsx(
+					'ComponentName base-classes',
+					variant === 'secondary' && 'secondary-classes',
+				)}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+
+ComponentName.displayName = 'ComponentName';
+
+export default ComponentName;
+```
+
+### Component Guidelines
+
+- **TypeScript types**: Prefer `type` over `interface` for component props and data structures
+- **Default exports**: Export components as default exports using `export default`
+- **Import paths**: Use `@/components/` alias for component imports
+- **Props interface**: Define clear, typed props with descriptive names
+- **forwardRef usage**: Use `forwardRef` for components that need to expose DOM refs
+
+## Component Patterns
+
+### Layout Components
+
+- **App** (`@/components/App`) - Main application wrapper with Header, Main, and Footer
+- **Header** (`@/components/Header`) - Site header containing Logo component
+- **Main** (`@/components/Main`) - Main content area containing all section components
+- **Footer** (`@/components/Footer`) - Site footer with copyright and ToTop button
+
+### Section Components
+
+All section components follow a similar pattern using the Accordion component:
+
+- **Biography** (`@/components/Biography`) - Biography section in accordion
+- **Booking** (`@/components/Booking`) - Booking/contact section in accordion
+- **Events** (`@/components/Events`) - Events section in accordion
+- **Music** (`@/components/Music`) - Music section in accordion
+- **Photos** (`@/components/Photos`) - Photos section in accordion
+- **Socials** (`@/components/Socials`) - Social media section in accordion
+- **Support** (`@/components/Support`) - Support/donations section in accordion
+- **Videos** (`@/components/Videos`) - Videos section in accordion
+
+### Utility Components
+
+- **Logo** (`@/components/Logo`) - SVG logo component with aria-label
+- **Accordion** (`@/components/Accordion`) - Reusable accordion with configurable alignment and arrows
+- **ToTop** (`@/components/ToTop`) - Scroll to top button component
+
+## Configuration System
+
+The project uses a centralized configuration system with Zod validation:
+
+### Config Structure
+
+- **Config** (`@/config/config`) - Main config export with merged defaults and overrides
+- **DefaultConfig** (`@/config/defaults`) - Default configuration values
+- **ConfigSchema** (`@/config/schema`) - Zod schemas for type-safe validation
+- **ConfigTypes** (`@/config/types`) - TypeScript type definitions
+
+### Config Sections
+
+- **SiteIdentity**: Band name, hometown, logo type
+- **Music**: Apple Music, Spotify links, music embed
+- **Videos**: YouTube channel, video embed
+- **Photos**: Photo array configuration
+- **Contact**: Booking email/phone, social media links, settings
+- **Support**: Payment platform links (Apple Pay, Google Pay, PayPal, Stripe, Venmo)
+- **Colors**: Background, accent, body, white, black
+- **Fonts**: Header, fancy, main fonts and imports
+- **Elements**: Typography styling for h1-h6, p, a elements
+- **Options**: Accordion settings, analytics, background, footer, sections
+
+### Using Config
+
+```tsx
+import { Config } from '@/config/config';
+import { getField } from '@/config/config';
+
+// Access full config
+const bandName = Config.SiteIdentity['Band Name'];
+
+// Use helper function
+const musicConfig = getField('Music');
+```
+
+## Component Best Practices
+
+### Performance
+
+- **React.memo**: Use for components with stable props when needed
+- **useMemo**: Use for expensive computations
+- **useCallback**: Use for event handlers passed as props
+- **Tree shaking**: Import only necessary components
+
+### Accessibility
+
+- **ARIA labels**: Include appropriate ARIA labels and roles
+- **Keyboard navigation**: Support keyboard navigation for interactive elements
+- **Focus management**: Implement proper focus management
+- **Screen reader compatibility**: Ensure screen reader compatibility
+- **Color contrast**: Maintain proper color contrast ratios
+- **Semantic HTML**: Use semantic HTML structure (header, main, footer, nav, etc.)
+
+### Error Handling
+
+- **Defensive programming**: Include validation and fallbacks for data integrity
+- **Config validation**: Config system uses Zod for runtime validation
+- **Graceful degradation**: Handle missing config values gracefully
+
+### SVG Icons
+
+- **FontAwesome**: Use FontAwesome icons via `@fortawesome/react-fontawesome`
+- **SVG React components**: Use `?react` suffix for SVG imports (e.g., `@/assets/logo.svg?react`)
+- **Icon accessibility**: Include `aria-hidden='true'` for decorative icons
+
+## Styling Guidelines
+
+### Tailwind CSS
+
+- **Utility-first**: Use Tailwind utility classes for styling
+- **Custom classes**: Use custom CSS classes for complex or reusable patterns
+- **Responsive design**: Use Tailwind responsive prefixes (sm:, md:, lg:, xl:)
+- **Dark mode**: Support dark mode if configured in Tailwind config
+
+### Class Management
+
+- **clsx**: Use `clsx` for conditional class names
+- **Component classes**: Include component name as base class for scoping
+
+```tsx
+import clsx from 'clsx';
+
+<div
+  className={clsx(
+    'ComponentName base-classes',
+    condition && 'conditional-classes',
+    variant === 'primary' && 'primary-classes',
+  )}
+>
+```
+
+## Typography
+
+- **Typographic apostrophe**: Use ' instead of ' in all user-facing text
+- **Config-driven**: Typography styles are driven by config system
+- **Font imports**: Use config for font family imports
+
+## Component Testing
+
+### Unit Testing
+
+- **Component rendering**: Test component rendering with different props
+- **User interactions**: Test user interactions and callbacks
+- **Accessibility features**: Test accessibility features
+- **Config integration**: Test components with different config values
+
+### Integration Testing
+
+- **Section integration**: Test section components within Main
+- **Accordion behavior**: Test accordion open/close functionality
+- **Responsive behavior**: Test responsive behavior across screen sizes
+- **Config system**: Test config merging and validation
+
+### Testing Commands
+
+- Use `pnpm dev` for development server
+- Use `pnpm build` for production build
+- Use `pnpm lint` for linting
+- Use `pnpm format` for formatting code
+- Use `pnpm format:check` for checking code format

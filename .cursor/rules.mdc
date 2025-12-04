@@ -1,0 +1,281 @@
+---
+alwaysApply: true
+---
+
+# Old Mountain Acid Test Project Rules
+
+## Core Principles
+
+- Write and review code like a senior developer
+- Challenge erroneous assumptions and inefficiencies
+- Use **pnpm** for package management
+- Prefer `pnpm build` over `pnpm dev` for compilation
+- Use **TypeScript** with strict configuration
+- Follow **React 19** with **Vite** architecture
+- Use typographic apostrophe ' instead of straight apostrophe ' in ALL user-facing text
+
+## Package Management
+
+- **Package Manager**: pnpm
+- **Build Command**: `pnpm build` (TypeScript compilation + Vite build)
+- **Development Command**: `pnpm dev` (Vite dev server with HMR)
+- **Lock File**: `pnpm-lock.yaml`
+
+## Development Scripts
+
+### Development Commands
+
+- **Development Server**: `pnpm dev` (Vite dev server with HMR)
+- **Production Build**: `pnpm build` (TypeScript compilation + Vite build)
+- **Preview Build**: `pnpm preview` (Preview production build locally)
+- **Linting**: `pnpm lint` (Run ESLint)
+- **Formatting**: `pnpm format` (Format code with Prettier)
+- **Format Check**: `pnpm format:check` (Check code format)
+
+### Vite Benefits
+
+- **Fast HMR**: Hot Module Replacement for instant updates
+- **Optimized builds**: Production builds with code splitting
+- **TypeScript support**: Native TypeScript support
+- **Plugin ecosystem**: Rich plugin ecosystem (React, Tailwind, SVGR)
+
+## Project Structure
+
+```
+src/
+├── assets/              # Static assets (SVG, images)
+│   └── logo.svg         # Logo SVG file
+├── components/          # React components
+│   ├── App.tsx          # Main application component
+│   ├── Header.tsx       # Site header
+│   ├── Main.tsx         # Main content area
+│   ├── Footer.tsx       # Site footer
+│   ├── Logo.tsx         # Logo component
+│   ├── Accordion.tsx    # Reusable accordion component
+│   ├── Biography.tsx    # Biography section
+│   ├── Booking.tsx      # Booking/contact section
+│   ├── Events.tsx       # Events section
+│   ├── Music.tsx        # Music section
+│   ├── Photos.tsx       # Photos section
+│   ├── Socials.tsx      # Social media section
+│   ├── Support.tsx      # Support/donations section
+│   ├── ToTop.tsx        # Scroll to top button
+│   └── Videos.tsx       # Videos section
+├── config/              # Configuration system
+│   ├── config.ts        # Main config builder and exports
+│   ├── defaults.ts      # Default configuration values
+│   ├── schema.ts        # Zod schemas for validation
+│   └── types.ts         # TypeScript type definitions
+├── main.tsx             # Application entry point
+└── index.css            # Global styles and CSS variables
+```
+
+## Code Organization
+
+### Import Organization
+
+- **Defined order**: Follow specific import order, then alphabetize within each group
+- **Import order**:
+  1. React imports (from 'react')
+  2. Third-party libraries (alphabetically by source)
+  3. Internal project imports (alphabetically by path)
+  4. Type imports (alphabetically by path)
+- **Avoid React namespace**: Import React types directly, avoid `React.` prefix
+- **Named imports**: Use named imports for better tree-shaking
+
+#### Import Order Example
+
+```tsx
+// 1. React imports
+import { useState } from 'react';
+
+// 2. Third-party libraries (alphabetically by source)
+import clsx from 'clsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
+// 3. Internal project imports (alphabetically by path)
+import Accordion from '@/components/Accordion';
+import { Config } from '@/config/config';
+
+// 4. React type imports (alphabetically by path)
+import type { ReactNode } from 'react';
+
+// 5. Type imports (alphabetically by path)
+import type { ComponentProps } from '@/types';
+```
+
+### File Structure
+
+```tsx
+// Standard component file structure
+import clsx from 'clsx';
+
+import type { ReactNode } from 'react';
+
+type ComponentProps = {
+	// Required props
+	title: string;
+	// Optional props with defaults
+	variant?: 'primary' | 'secondary';
+	size?: 'sm' | 'md' | 'lg';
+	disabled?: boolean;
+	// Children
+	children?: ReactNode;
+};
+
+// Default export pattern (current working pattern)
+function ComponentName({
+	title,
+	variant = 'primary',
+	size = 'md',
+	disabled = false,
+	children,
+}: ComponentProps) {
+	return (
+		<div
+			className={clsx(
+				'ComponentName base-classes',
+				variant === 'secondary' && 'secondary-classes',
+				size === 'lg' && 'large-classes',
+				disabled && 'disabled-classes',
+			)}
+		>
+			{children}
+		</div>
+	);
+}
+
+export default ComponentName;
+
+// Alternative: forwardRef pattern for components needing DOM refs
+import { forwardRef } from 'react';
+
+const ComponentName = forwardRef<HTMLDivElement, ComponentProps>(
+	(
+		{ title, variant = 'primary', size = 'md', disabled = false, children },
+		ref,
+	) => {
+		return (
+			<div
+				className={clsx(
+					'ComponentName base-classes',
+					variant === 'secondary' && 'secondary-classes',
+					size === 'lg' && 'large-classes',
+					disabled && 'disabled-classes',
+				)}
+				ref={ref}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+
+ComponentName.displayName = 'ComponentName';
+
+export default ComponentName;
+```
+
+## Styling Guidelines
+
+### CSS and Styling
+
+- **Avoid Tailwind margin/space classes**: Do not use `space-x-*` or `space-y-*` utilities - use flex/gap instead
+- **Use flex/gap spacing**: Use `flex flex-col gap-*` for vertical spacing and `flex items-center gap-*` for horizontal spacing
+- **No !important declarations**: Avoid using `!important` in CSS
+- **CSS variables**: Use CSS variables for colors and fonts (--epk-background, --epk-accent, etc.)
+- **Tailwind utilities**: Use Tailwind utility classes for styling
+- **Custom CSS**: Use custom CSS classes for complex or reusable patterns (accordion, metronome, etc.)
+
+### Spacing Examples
+
+```tsx
+// ❌ Avoid - margin-based spacing
+<div className='space-y-4'>
+  <Component />
+</div>
+
+// ✅ Good - flexbox-based spacing
+<div className='flex flex-col gap-4'>
+  <Component />
+</div>
+```
+
+### React Best Practices
+
+- **TypeScript**: Avoid using `any` type, prefer proper typing
+- **Component optimization**: Use `memo` for performance optimization when appropriate
+- **Default exports**: Use default exports for components
+- **Import paths**: Use `@/` alias for clean imports
+
+## Configuration System
+
+### Config Guidelines
+
+- **Centralized config**: All configuration is centralized in `src/config/`
+- **Zod validation**: All config values are validated with Zod schemas
+- **Type safety**: Config uses TypeScript types for compile-time safety
+- **Deep merging**: Config system supports deep merging of defaults and overrides
+- **Config access**: Import and use `Config` from `@/config/config`
+
+### Config Usage
+
+```tsx
+// ✅ Access config values
+import { Config } from '@/config/config';
+import { getField } from '@/config/config';
+
+// Access full config
+const bandName = Config.SiteIdentity['Band Name'];
+
+// Use helper function
+const musicConfig = getField('Music');
+```
+
+## Icons and Assets
+
+### Icon Guidelines
+
+- **FontAwesome**: Use FontAwesome icons via `@fortawesome/react-fontawesome`
+- **SVG React components**: Use `?react` suffix for SVG imports (e.g., `@/assets/logo.svg?react`)
+- **Icon accessibility**: Include `aria-hidden='true'` for decorative icons
+
+### Asset Guidelines
+
+- **SVG imports**: Use `?react` suffix to import SVGs as React components
+- **Image assets**: Place images in `public/` directory for static assets
+- **Asset organization**: Keep assets organized by type
+
+## Comments and Documentation
+
+### Comment Guidelines
+
+- **Minimal comments**: Limit comments to non-obvious functionality
+- **Purpose comments**: Comment on oddities that have non-obvious purposes
+- **Self-documenting code**: Write code that explains itself through clear naming and structure
+- **JSDoc**: Use JSDoc comments for complex props and functions
+
+## Communication Standards
+
+### Progress Updates
+
+- **Meaningful updates only**: Avoid inane progress updates and status reports
+- **Focus on substance**: Communicate actual progress, blockers, or decisions that matter
+- **No busy work updates**: Don't report on routine tasks or obvious progress
+- **Context matters**: Provide context when updates are necessary
+- **Efficiency**: Respect time by being concise and relevant
+
+### Documentation Standards
+
+- **Documentation directory**: Place all MD documentation in appropriate directories
+- **Usage examples**: Provide clear usage examples
+- **Props documentation**: Document all props with types and descriptions
+- **Config documentation**: Document config structure and usage
+
+### Documentation Updates
+
+- **Substantive changes only**: Update documentation for meaningful changes
+- **Avoid trivial updates**: Don't update docs for minor formatting or obvious changes
+- **Focus on value**: Document decisions, patterns, and changes that provide value
+- **Clear purpose**: Ensure documentation updates serve a clear purpose
