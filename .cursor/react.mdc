@@ -286,15 +286,17 @@ src/
 
 - **`pnpm dev`**: Start development server with HMR
 - **`pnpm build`**: Build for production
-- **`pnpm lint`**: Run ESLint
-- **`pnpm format`**: Format code with Prettier
+- **`pnpm lint`**: Run Biome linter
+- **`pnpm lint:fix`**: Run Biome linter and auto-fix
+- **`pnpm format`**: Format code with Biome
 - **`pnpm format:check`**: Check code format
+- **`pnpm check`**: Run Biome formatter + linter
+- **`pnpm check:write`**: Run Biome formatter + linter and auto-fix
 
 ### Code Quality
 
 - **TypeScript**: Strict type checking enabled
-- **ESLint**: Code linting with React-specific rules
-- **Prettier**: Code formatting with Tailwind plugin
+- **Biome**: Code formatting, linting, and import organization (replaces ESLint + Prettier)
 - **Import organization**: Use `@/` alias for clean imports
 
 ### Testing

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import clsx from 'clsx';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import type { ReactNode } from 'react';
 
@@ -37,13 +37,18 @@ function Accordion({
 			className={clsx(
 				accordionClassName,
 				'accordion w-full max-w-4xl',
-				isOpen && 'open',
+				isOpen && 'open'
 			)}
 			id={accordionId}
 		>
 			<div
 				className='accordion-toggle flex cursor-pointer justify-between'
 				onClick={toggleAccordion}
+				onKeyUp={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						toggleAccordion();
+					}
+				}}
 			>
 				<h3 className={`flex-auto text-${align}`}>{title}</h3>
 				{hasArrows && (

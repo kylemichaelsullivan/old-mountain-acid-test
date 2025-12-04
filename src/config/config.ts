@@ -1,8 +1,5 @@
 import { DefaultConfig } from './defaults';
-import {
-	ConfigSchema as ConfigSchemaZod,
-	PhotosSchema,
-} from './schema';
+import { ConfigSchema as ConfigSchemaZod, PhotosSchema } from './schema';
 
 import type { ConfigSchema } from './schema';
 
@@ -216,52 +213,61 @@ function buildConfig(
 	defaults: ConfigSchema,
 	overrides: {
 		[K in keyof ConfigSchema]?: DeepPartial<ConfigSchema[K]>;
-	},
+	}
 ): ConfigSchema {
 	const validatedDefaults = ConfigSchemaZod.parse(defaults);
 
 	const result: ConfigSchema = { ...validatedDefaults };
 
-	(Object.keys(overrides) as Array<keyof ConfigSchema>).forEach((key) => {
+	for (const key of Object.keys(overrides) as Array<keyof ConfigSchema>) {
 		const overrideSection = overrides[key];
-		if (overrideSection === undefined) return;
+		if (overrideSection === undefined) continue;
 
 		const defaultSection = validatedDefaults[key];
 
 		// Special handling for Photos (array) - arrays are replaced entirely
 		if (key === 'Photos') {
 			const validatedOverride = PhotosSchema.parse(overrideSection);
-			(result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>)[key] =
-				validatedOverride as ConfigSchema[typeof key];
-			return;
+			(result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>)[
+				key
+			] = validatedOverride as ConfigSchema[typeof key];
+			continue;
 		}
 
 		// For all other sections, get the schema and validate as partial
 		const sectionSchema = ConfigSchemaZod.shape[key];
-		if (!sectionSchema) return;
+		if (!sectionSchema) continue;
 
 		// Use partial() to allow partial overrides, then merge
 		try {
 			// Check if it's a ZodObject by trying to call partial()
-			if ('partial' in sectionSchema && typeof sectionSchema.partial === 'function') {
+			if (
+				'partial' in sectionSchema &&
+				typeof sectionSchema.partial === 'function'
+			) {
 				const partialSchema = sectionSchema.partial();
 				const validatedOverride = partialSchema.parse(overrideSection);
-				(result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>)[key] =
-					deepMerge(
-						defaultSection,
-						validatedOverride,
-					) as ConfigSchema[typeof key];
+				(
+					result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>
+				)[key] = deepMerge(
+					defaultSection,
+					validatedOverride
+				) as ConfigSchema[typeof key];
 			} else {
 				// For non-objects, validate directly
 				const validatedOverride = sectionSchema.parse(overrideSection);
-				(result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>)[key] =
-					validatedOverride as ConfigSchema[typeof key];
+				(
+					result as Record<keyof ConfigSchema, ConfigSchema[keyof ConfigSchema]>
+				)[key] = validatedOverride as ConfigSchema[typeof key];
 			}
 		} catch (error) {
 			// If validation fails, log error but continue with default
-			console.error(`Validation error for config section "${String(key)}":`, error);
+			console.error(
+				`Validation error for config section "${String(key)}":`,
+				error
+			);
 		}
-	});
+	}
 
 	return ConfigSchemaZod.parse(result);
 }
@@ -273,7 +279,7 @@ function buildConfig(
 export const Config: ConfigSchema = buildConfig(DefaultConfig, configOverrides);
 
 export function getField<K extends keyof ConfigSchema>(
-	field: K,
+	field: K
 ): ConfigSchema[K] {
 	return (Config[field] as ConfigSchema[K]) ?? DefaultConfig[field];
 }

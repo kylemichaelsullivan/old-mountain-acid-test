@@ -28,9 +28,12 @@ alwaysApply: true
 - **Development Server**: `pnpm dev` (Vite dev server with HMR)
 - **Production Build**: `pnpm build` (TypeScript compilation + Vite build)
 - **Preview Build**: `pnpm preview` (Preview production build locally)
-- **Linting**: `pnpm lint` (Run ESLint)
-- **Formatting**: `pnpm format` (Format code with Prettier)
+- **Linting**: `pnpm lint` (Run Biome linter)
+- **Lint Fix**: `pnpm lint:fix` (Run Biome linter and auto-fix)
+- **Formatting**: `pnpm format` (Format code with Biome)
 - **Format Check**: `pnpm format:check` (Check code format)
+- **Check All**: `pnpm check` (Run Biome formatter + linter)
+- **Check All Fix**: `pnpm check:write` (Run Biome formatter + linter and auto-fix)
 
 ### Vite Benefits
 

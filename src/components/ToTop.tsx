@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function ToTop() {
 	const scrollToTop = useCallback(() => {

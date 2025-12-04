@@ -326,11 +326,11 @@ html,
 }
 
 .accordion .accordion-content .fa {
-	font-family: 'Font Awesome 6 Free';
+	font-family: 'Font Awesome 6 Free', monospace;
 }
 
 .accordion .accordion-content .fa-brands {
-	font-family: 'Font Awesome 6 Brands';
+	font-family: 'Font Awesome 6 Brands', monospace;
 }
 
 .accordion .accordion-content .slider {

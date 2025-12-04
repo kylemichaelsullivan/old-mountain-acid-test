@@ -1,10 +1,10 @@
-import Music from './Music';
-import Videos from './Videos';
-import Photos from './Photos';
-import Events from './Events';
 import Booking from '@/components/Booking';
-import Support from '@/components/Support';
 import Socials from '@/components/Socials';
+import Support from '@/components/Support';
+import Events from './Events';
+import Music from './Music';
+import Photos from './Photos';
+import Videos from './Videos';
 
 function Main() {
 	return (
